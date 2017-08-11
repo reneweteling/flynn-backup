@@ -26,7 +26,7 @@ gem 'delayed_job_active_record'
 gem 'devise'
 gem 'activeadmin'
 # Cron actions
-gem 'whenever', :require => false
+gem 'clockwork'
 
 group :development, :test do
   gem 'pry'
