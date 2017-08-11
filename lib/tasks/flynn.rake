@@ -12,9 +12,10 @@ namespace :flynn do
       # link resources
       flynn.resources.each do |r|
         resource = app.resources.find_or_initialize_by(f_id: r['ID'])
-        resource.provider_id = r['PROVIDER_ID']
-        resource.provider_name = r['PROVIDER_NAME']
+        resource.provider_id = r['Provider ID']
+        resource.provider_name = r['Provider Name']
         resource.type = "#{resource.provider_name}_resource".camelize
+        resource.save!
       end
 
       # link routes
@@ -25,6 +26,7 @@ namespace :flynn do
         route.sticky = r['STICKY']
         route.leader = r['LEADER']
         route.path = r['PATH']
+        route.save!
       end
 
       app.save!

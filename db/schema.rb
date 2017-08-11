@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170810081110) do
+ActiveRecord::Schema.define(version: 20170811083059) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,4 +46,37 @@ ActiveRecord::Schema.define(version: 20170810081110) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "apps", force: :cascade do |t|
+    t.string "f_id"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "resources", force: :cascade do |t|
+    t.bigint "app_id"
+    t.string "type"
+    t.string "f_id"
+    t.string "provider_id"
+    t.string "provider_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["app_id"], name: "index_resources_on_app_id"
+  end
+
+  create_table "routes", force: :cascade do |t|
+    t.bigint "app_id"
+    t.string "f_id"
+    t.string "route"
+    t.string "service"
+    t.boolean "sticky"
+    t.boolean "leader"
+    t.string "path"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["app_id"], name: "index_routes_on_app_id"
+  end
+
+  add_foreign_key "resources", "apps"
+  add_foreign_key "routes", "apps"
 end
