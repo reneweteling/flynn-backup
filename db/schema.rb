@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170811083059) do
+ActiveRecord::Schema.define(version: 20170811134224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,44 @@ ActiveRecord::Schema.define(version: 20170811083059) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "backup_schemas", force: :cascade do |t|
+    t.bigint "app_id"
+    t.bigint "resource_id"
+    t.integer "days"
+    t.integer "hours"
+    t.integer "retention"
+    t.boolean "enabled"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["app_id"], name: "index_backup_schemas_on_app_id"
+    t.index ["resource_id"], name: "index_backup_schemas_on_resource_id"
+  end
+
+  create_table "backups", force: :cascade do |t|
+    t.bigint "app_id"
+    t.bigint "resource_id"
+    t.string "file"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["app_id"], name: "index_backups_on_app_id"
+    t.index ["resource_id"], name: "index_backups_on_resource_id"
+  end
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer "priority", default: 0, null: false
+    t.integer "attempts", default: 0, null: false
+    t.text "handler", null: false
+    t.text "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string "locked_by"
+    t.string "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
+
   create_table "resources", force: :cascade do |t|
     t.bigint "app_id"
     t.string "type"
@@ -77,6 +115,10 @@ ActiveRecord::Schema.define(version: 20170811083059) do
     t.index ["app_id"], name: "index_routes_on_app_id"
   end
 
+  add_foreign_key "backup_schemas", "apps"
+  add_foreign_key "backup_schemas", "resources"
+  add_foreign_key "backups", "apps"
+  add_foreign_key "backups", "resources"
   add_foreign_key "resources", "apps"
   add_foreign_key "routes", "apps"
 end

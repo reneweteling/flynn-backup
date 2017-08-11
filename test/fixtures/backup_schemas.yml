@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  app: one
+  resource: one
+  days: 1
+  hours: 1
+  retention: 1
+  enabled: false
+
+two:
+  app: two
+  resource: two
+  days: 1
+  hours: 1
+  retention: 1
+  enabled: false

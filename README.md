@@ -13,17 +13,20 @@ What this app does is just that, it uses a webinterface to manage our backup per
 3. add postgress `flynn resource add postgres`
 4. add missing env variables (the PG variables are already fixed by Flynn)
 5. migrate your db `flynn run bin/rails db:migrate db:seed`
-6. open up your brower to your flynn url and login with `admin` / `password` (you can change this when your logged in)
+6. open up your brower to your flynn url and login with `admin@example.com` / `password` (you can change this when your logged in)
 
 ## Buildpacks
 1. https://github.com/heroku/heroku-buildpack-ruby.git, lets let rails do its thing
 2. https://github.com/reneweteling/flynncli-buildpack.git, install the flynn cli in the container
 
 ## Env variables
-PGHOST=
-PGUSER=
-PGPASSWORD=
-PGDATABASE=
+
+| ENV_VAR               | DESCRIPTION                                              |
+|-----------------------|----------------------------------------------------------|
+| PGHOST                | DB credentials, provided by Flynn                        |
+| PGUSER                | DB credentials, provided by Flynn                        |
+| PGPASSWORD            | DB credentials, provided by Flynn                        |
+| PGDATABASE            | DB credentials, provided by Flynn                        |
 
 ## Roadmap
 1. [ ] Get it to work
