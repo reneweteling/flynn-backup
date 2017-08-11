@@ -2,22 +2,22 @@
 
 So flynn.io is awesome, only some basic automatisation tasks are missing. At least for me. 
 
-1 - Automated backups
-2 - Ssl with automated renewal (wip)
+1. Automated backups to s3
+2. Ssl with automated renewal (wip)
 
 What this app does is just that, it uses a webinterface to manage our backup periods and apps. And it uses the flynncli to get all of the data from your cluster.
 
 ## Getting started
-1 - clone repo and create flynn app `flynn create flynn-backup`
-2 - push to your cluster `git push flynn master`
-3 - add postgress `flynn resource add postgres`
-4 - add missing env variables (the PG variables are already fixed by Flynn)
-5 - migrate your db `flynn run bin/rails db:migrate db:seed`
-6 - open up your brower to your flynn url and login with `admin` / `password` (you can change this when your logged in)
+1. clone repo and create flynn app `flynn create flynn-backup`
+2. push to your cluster `git push flynn master`
+3. add postgress `flynn resource add postgres`
+4. add missing env variables (the PG variables are already fixed by Flynn)
+5. migrate your db `flynn run bin/rails db:migrate db:seed`
+6. open up your brower to your flynn url and login with `admin` / `password` (you can change this when your logged in)
 
 ## Buildpacks
-- 1 https://github.com/heroku/heroku-buildpack-ruby.git, lets let rails do its thing
-- 2 https://github.com/reneweteling/flynncli-buildpack.git, install the flynn cli in the container
+1. https://github.com/heroku/heroku-buildpack-ruby.git, lets let rails do its thing
+2. https://github.com/reneweteling/flynncli-buildpack.git, install the flynn cli in the container
 
 ## Env variables
 PGHOST=
@@ -26,8 +26,8 @@ PGPASSWORD=
 PGDATABASE=
 
 ## Roadmap
-1 - Get it to work
-2 - add LetsEncrypt to the mix to automaticly renew and set your ssl sertificates
+1. [ ] Get it to work
+2. [ ] add LetsEncrypt to the mix to automaticly renew and set your ssl sertificates
 
 ## Contributing
 
@@ -56,7 +56,7 @@ under the terms specified in the [LICENSE] file.
 
 Flynn-backup is maintained by René Weteling.
 
-![René Weteling](http://www.weteling.com/zzz/bg-400.png)
+![René Weteling](http://www.weteling.com/zzz/footer.png)
 
 Flynn-backup is maintained and funded by Weteling Support.
 
