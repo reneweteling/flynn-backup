@@ -16,8 +16,8 @@ What this app does is just that, it uses a webinterface to manage our backup per
 6 - open up your brower to your flynn url and login with `admin` / `password` (you can change this when your logged in)
 
 ## Buildpacks
-1 - https://github.com/heroku/heroku-buildpack-ruby.git, lets let rails do its thing
-2 - https://github.com/reneweteling/flynncli-buildpack.git, install the flynn cli in the container
+- 1 https://github.com/heroku/heroku-buildpack-ruby.git, lets let rails do its thing
+- 2 https://github.com/reneweteling/flynncli-buildpack.git, install the flynn cli in the container
 
 ## Env variables
 PGHOST=
