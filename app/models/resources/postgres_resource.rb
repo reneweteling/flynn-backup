@@ -1,0 +1,2 @@
+class PostgresResource < Resource
+end

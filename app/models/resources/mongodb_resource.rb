@@ -1,0 +1,2 @@
+class MongodbResource < Resource
+end

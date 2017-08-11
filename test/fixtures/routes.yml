@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  app: one
+  f_id: MyString
+  route: MyString
+  service: MyString
+  sticky: false
+  leader: false
+  path: MyString
+
+two:
+  app: two
+  f_id: MyString
+  route: MyString
+  service: MyString
+  sticky: false
+  leader: false
+  path: MyString

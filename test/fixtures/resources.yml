@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  app: one
+  type: 
+  f_id: MyString
+  provider_id: MyString
+  provider_name: MyString
+
+two:
+  app: two
+  type: 
+  f_id: MyString
+  provider_id: MyString
+  provider_name: MyString

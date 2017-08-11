@@ -1,0 +1,17 @@
+default: &default
+  adapter: postgresql
+  host: <%= ENV['PGHOST'] %>
+  username: <%= ENV['PGUSER'] %>
+  password: <%= ENV['PGPASSWORD'] %>
+  database: <%= ENV['PGDATABASE'] %>
+  
+development:
+  <<: *default
+  database: flynn-backup-dev
+
+test:
+  <<: *default
+  database: flynn-backup-test
+
+production:
+  <<: *default

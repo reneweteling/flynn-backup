@@ -1,0 +1,2 @@
+class MariadbResource < Resource
+end
