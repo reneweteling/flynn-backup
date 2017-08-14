@@ -7,7 +7,9 @@ class CreateBackupSchemas < ActiveRecord::Migration[5.1]
       t.integer :hours
       t.integer :retention
       t.boolean :enabled
-
+      t.integer :backups_count
+      t.timestamp :run_at
+      
       t.timestamps
     end
   end

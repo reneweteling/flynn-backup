@@ -60,6 +60,8 @@ ActiveRecord::Schema.define(version: 20170811134224) do
     t.integer "hours"
     t.integer "retention"
     t.boolean "enabled"
+    t.integer "backups_count"
+    t.datetime "run_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["app_id"], name: "index_backup_schemas_on_app_id"
@@ -69,10 +71,13 @@ ActiveRecord::Schema.define(version: 20170811134224) do
   create_table "backups", force: :cascade do |t|
     t.bigint "app_id"
     t.bigint "resource_id"
+    t.bigint "backup_schema_id"
     t.string "file"
+    t.integer "file_size"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["app_id"], name: "index_backups_on_app_id"
+    t.index ["backup_schema_id"], name: "index_backups_on_backup_schema_id"
     t.index ["resource_id"], name: "index_backups_on_resource_id"
   end
 
@@ -118,6 +123,7 @@ ActiveRecord::Schema.define(version: 20170811134224) do
   add_foreign_key "backup_schemas", "apps"
   add_foreign_key "backup_schemas", "resources"
   add_foreign_key "backups", "apps"
+  add_foreign_key "backups", "backup_schemas"
   add_foreign_key "backups", "resources"
   add_foreign_key "resources", "apps"
   add_foreign_key "routes", "apps"

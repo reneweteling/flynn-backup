@@ -18,19 +18,33 @@ class Flynn
     self.class.table_to_hash `flynn -a #{@app} resource`
   end
 
-  def backup_pg
-    `flynn -a #{@app} pg dump`
+  def backup_postgres
+    tmp_file "flynn -a #{@app} pg dump"
   end
 
-  def backup_mysql
-    `flynn -a #{app} dump`
+  def backup_mariadb
+    tmp_file "flynn -a #{app} mysql dump"
+  end
+
+  def backup_mongodb
+    tmp_file "flynn -a #{app} mongodb dump"
+  end
+
+  def backup_redis
+    tmp_file "flynn -a #{app} redis dump"
   end
 
   def backup_app
-    `flynn -a #{@app} export`
+    tmp_file "flynn -a #{@app} export"
   end
 
   private
+
+  def tmp_file cmd
+    file = Tempfile.new(['tmp', '.tar'])
+    `#{cmd} -f #{file.path}`
+    file
+  end
 
   def self.table_to_hash table
     rows = table.split("\n")
@@ -42,3 +56,4 @@ class Flynn
   end
 
 end
+

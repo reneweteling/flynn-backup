@@ -1,6 +1,6 @@
 CarrierWave.configure do |config|
 
-  if ENV['AWS_BUCKET'] and Rails.env.test? == false
+  if ENV['AWS_BUCKET'] and !Rails.env.test?
     config.storage    = :aws
     config.aws_bucket = ENV.fetch('AWS_BUCKET')
     config.aws_acl    = 'private'
