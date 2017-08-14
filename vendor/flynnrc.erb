@@ -1,0 +1,7 @@
+default = "default"
+
+[[cluster]]
+  Name = "default"
+  Key = "<%= ENV.fetch('FLYNN_KEY') %>"
+  TLSPin = = "<%= ENV.fetch('FLYNN_TLSPIN') %>"
+  ControllerURL = = "<%= ENV.fetch('FLYNN_CONTROLLER_URL') %>"
