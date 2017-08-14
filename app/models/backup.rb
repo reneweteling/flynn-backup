@@ -1,7 +1,7 @@
 class Backup < ApplicationRecord
   belongs_to :app
-  belongs_to :resource
-  belongs_to :backup_schema, counter_cache: true
+  belongs_to :resource, optional: true
+  belongs_to :backup_schema, counter_cache: true, optional: true
 
   mount_uploader :file, BaseUploader
 
