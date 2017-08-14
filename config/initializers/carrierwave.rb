@@ -6,7 +6,7 @@ CarrierWave.configure do |config|
     config.aws_acl    = 'private'
 
     # Optionally define an asset host for configurations that are fronted by a
-    config.asset_host = ENV['IMAGE_HOST'].present? ? ENV['IMAGE_HOST'] : "https://s3-#{ENV.fetch('AWS_REGION')}.amazonaws.com/#{config.aws_bucket}"
+    config.asset_host = "https://s3-#{ENV.fetch('AWS_REGION')}.amazonaws.com/#{config.aws_bucket}"
     
     # The maximum period for authenticated_urls is only 1 minute.
     config.aws_authenticated_url_expiration = 60 * 5
