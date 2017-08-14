@@ -1,7 +1,7 @@
 class BackupJob < ApplicationJob
   
   def perform
-    log('whoohoooo')
+    log "Rub #{Time.now}"
   end
 
   private
