@@ -27,10 +27,18 @@ What this app does is just that, it uses a webinterface to manage our backup per
 | PGUSER                | DB credentials, provided by Flynn                        |
 | PGPASSWORD            | DB credentials, provided by Flynn                        |
 | PGDATABASE            | DB credentials, provided by Flynn                        |
+| AWS_ACCESS_KEY_ID     | Aws credentials for off-site backup storage              |
+| AWS_SECRET_ACCESS_KEY | Aws credentials for off-site backup storage              |
+| AWS_REGION            | Aws credentials for off-site backup storage              |
+| AWS_BUCKET            | Aws credentials for off-site backup storage              |
+| FLYNN_KEY             | Flynn cluster credentials, see ~/.flynnrc for the values |
+| FLYNN_TLSPIN          | Flynn cluster credentials, see ~/.flynnrc for the values |
+| FLYNN_DOMAIN          | Flynn cluster credentials, see ~/.flynnrc for the values |
 
 ## Roadmap
-1. [ ] Get it to work
-2. [ ] add LetsEncrypt to the mix to automaticly renew and set your ssl sertificates
+1. [x] Get it to work
+2. [ ] Replace the backup to tmp file to aws with backup stdout to stdin from the awscli, eliminatig the need for a big tmp disk
+3. [ ] add LetsEncrypt to the mix to automaticly renew and set your ssl sertificates
 
 ## Contributing
 

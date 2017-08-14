@@ -5,5 +5,6 @@ class BackupSchema < ApplicationRecord
 
   validates_presence_of :app, :days, :hours, :retention
 
-  scope :pending_jobs, -> { where("backup_schemas.run_at isnull or now() > (backup_schemas.run_at + (backup_schemas.days || ' day ' || backup_schemas.hours || ' hour')::interval)") }
+  scope :enabled, -> { where(enabled: :true) }
+  scope :pending_jobs, -> { enabled.where("backup_schemas.run_at isnull or now() > (backup_schemas.run_at + (backup_schemas.days || ' day ' || backup_schemas.hours || ' hour')::interval)") }
 end

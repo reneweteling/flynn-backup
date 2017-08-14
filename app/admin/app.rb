@@ -21,6 +21,9 @@ ActiveAdmin.register App do
     id_column
     column :f_id
     column :name
+    column :jobs do |row|
+      row.backup_schemas.enabled.count
+    end
     actions
   end
 
@@ -63,7 +66,7 @@ ActiveAdmin.register App do
         b.input :days, hint: "Number of days between backups"
         b.input :hours, hint: "Number of hours between backups"
         b.input :retention, hint: "Amount of backups that need to be kept"
-        b.input :enabled
+        b.input :enabled, hint: "Last run at: #{b.object.run_at}"
       end
     end
 
