@@ -36,5 +36,7 @@ class FlynnSync
       app.routes.where.not(f_id: flynn.routes.map{|f| f['ID'] }).destroy_all
     end
 
+    # remove removed apps
+    App.where.not(f_id: apps.map{|f| f['ID'] }).destroy_all
   end
 end
