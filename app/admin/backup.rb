@@ -1,5 +1,5 @@
 ActiveAdmin.register Backup do
-  actions :index
+  actions :index, :destroy
   filter :app
   filter :resource
   filter :created_at

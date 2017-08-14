@@ -7,7 +7,6 @@ class BackupJob < ApplicationJob
   private
 
   def backup
-    log "Starting backup"
     BackupSchema.pending_jobs.each do |b|
       
       # backup the apps
@@ -26,8 +25,6 @@ class BackupJob < ApplicationJob
       # Set our run time at now
       b.update!(run_at: Time.now)
     end
-    log "Backup done"
-
   end
 
   def log(msg)
