@@ -15,7 +15,7 @@ class BackupJob < ApplicationJob
         backup.resource = b.resource
         backup.file = b.resource.backup
       else
-        backup.file = Flynn.new(app.name).backup_app
+        backup.file = Flynn.new(b.app.name).backup_app
       end
       backup.save!
 
