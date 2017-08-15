@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170811134224) do
+ActiveRecord::Schema.define(version: 20170815182544) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "acme_certs", force: :cascade do |t|
+    t.bigint "app_id"
+    t.string "email"
+    t.text "private_key"
+    t.string "domain"
+    t.string "status"
+    t.string "auth_uri"
+    t.string "token"
+    t.string "filename"
+    t.text "file_content"
+    t.string "challange_verify_status"
+    t.string "auth_verify_status"
+    t.text "error"
+    t.index ["app_id"], name: "index_acme_certs_on_app_id"
+  end
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -120,6 +136,7 @@ ActiveRecord::Schema.define(version: 20170811134224) do
     t.index ["app_id"], name: "index_routes_on_app_id"
   end
 
+  add_foreign_key "acme_certs", "apps"
   add_foreign_key "backup_schemas", "apps"
   add_foreign_key "backup_schemas", "resources"
   add_foreign_key "backups", "apps"

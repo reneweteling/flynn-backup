@@ -29,6 +29,8 @@ gem 'devise'
 gem 'activeadmin'
 # Cron actions
 gem 'clockwork'
+# Lets encrypt
+gem 'acme-client'
 
 group :development, :test do
   gem 'pry'

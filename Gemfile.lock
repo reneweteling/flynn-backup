@@ -1,6 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    acme-client (0.6.1)
+      faraday (~> 0.9, >= 0.9.1)
     actioncable (5.1.3)
       actionpack (= 5.1.3)
       nio4r (~> 2.0)
@@ -97,6 +99,8 @@ GEM
       warden (~> 1.2.3)
     erubi (1.6.1)
     execjs (2.7.0)
+    faraday (0.13.0)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
     formtastic (3.1.5)
       actionpack (>= 3.2.13)
@@ -143,6 +147,7 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.2.0)
     minitest (5.10.3)
+    multipart-post (2.0.0)
     nio4r (2.1.0)
     nokogiri (1.8.0)
       mini_portile2 (~> 2.2.0)
@@ -241,6 +246,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acme-client
   activeadmin
   carrierwave-aws
   clockwork
@@ -259,6 +265,9 @@ DEPENDENCIES
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
+
+RUBY VERSION
+   ruby 2.4.1p111
 
 BUNDLED WITH
    1.15.3
