@@ -20,7 +20,7 @@ class BackupJob < ApplicationJob
       backup.save!
 
       # Remove items that are out of our retention scope
-      b.app.backups.order(id: :desc).drop(b.retention).map(&:destroy!)
+      b.app.backups.where(resource: b.resource).order(id: :desc).drop(b.retention).map(&:destroy!)
 
       # Set our run time at now
       b.update!(run_at: Time.now)
