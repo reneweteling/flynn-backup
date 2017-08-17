@@ -5,7 +5,7 @@ ActiveAdmin.register Backup do
   filter :created_at
 
   index do 
-    #selectable_column
+    selectable_column
     id_column
     column :app
     column :resource

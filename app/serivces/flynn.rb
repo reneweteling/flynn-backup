@@ -1,3 +1,5 @@
+require 'open3'
+
 class Flynn
 
   def initialize(app)
@@ -23,19 +25,34 @@ class Flynn
   end
 
   def backup_mariadb
-    tmp_file "flynn -a #{app} mysql dump"
+    tmp_file "flynn -a #{@app} mysql dump"
   end
 
   def backup_mongodb
-    tmp_file "flynn -a #{app} mongodb dump"
+    tmp_file "flynn -a #{@app} mongodb dump"
   end
 
   def backup_redis
-    tmp_file "flynn -a #{app} redis dump"
+    tmp_file "flynn -a #{@app} redis dump"
   end
 
   def backup_app
     tmp_file "flynn -a #{@app} export"
+  end
+
+  def update_ssl_route(acme_cert)
+    cert = Tempfile.new(['cert','.pem'])
+    key = Tempfile.new(['key','.pem'])
+    cert.write acme_cert.cert_pem
+    key.write acme_cert.private_pem
+    
+    cmd = "flynn -a #{@app} route update #{acme_cert.route.f_id} -c #{cert.path} -k #{key.path}"
+    stdout, stderr, status = Open3.capture3(cmd)
+    
+    cert.unlink
+    key.unlink
+
+    [stdout, stderr].join
   end
 
   private

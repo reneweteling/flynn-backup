@@ -16,19 +16,24 @@ ActiveRecord::Schema.define(version: 20170815182544) do
   enable_extension "plpgsql"
 
   create_table "acme_certs", force: :cascade do |t|
-    t.bigint "app_id"
+    t.bigint "route_id"
     t.string "email"
     t.text "private_key"
-    t.string "domain"
     t.string "status"
     t.string "auth_uri"
     t.string "token"
     t.string "filename"
     t.text "file_content"
-    t.string "challange_verify_status"
+    t.string "challenge_verify_status"
     t.string "auth_verify_status"
     t.text "error"
-    t.index ["app_id"], name: "index_acme_certs_on_app_id"
+    t.text "private_pem"
+    t.text "cert_pem"
+    t.text "chain_pem"
+    t.text "fullchain_pem"
+    t.datetime "expires_at"
+    t.datetime "issued_at"
+    t.index ["route_id"], name: "index_acme_certs_on_route_id"
   end
 
   create_table "active_admin_comments", force: :cascade do |t|
@@ -136,7 +141,7 @@ ActiveRecord::Schema.define(version: 20170815182544) do
     t.index ["app_id"], name: "index_routes_on_app_id"
   end
 
-  add_foreign_key "acme_certs", "apps"
+  add_foreign_key "acme_certs", "routes"
   add_foreign_key "backup_schemas", "apps"
   add_foreign_key "backup_schemas", "resources"
   add_foreign_key "backups", "apps"

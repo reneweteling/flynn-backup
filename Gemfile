@@ -27,10 +27,13 @@ gem 'delayed_job_active_record'
 # Activeadmin interface
 gem 'devise'
 gem 'activeadmin'
+gem 'activeadmin_addons'
 # Cron actions
 gem 'clockwork'
 # Lets encrypt
 gem 'acme-client'
+# error reporting
+gem 'airbrake', '~> 6.2'
 
 group :development, :test do
   gem 'pry'
