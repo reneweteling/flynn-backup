@@ -7,7 +7,7 @@ class CertificateJob < ApplicationJob
   private
 
   def prolong_certificates
-    AcmeCerts.expires_soon.each do |cert|
+    AcmeCert.expires_soon.each do |cert|
       # get a new certificate
       AcmeClient.new(cert).get_certificate!
       # add it to our flynn route
