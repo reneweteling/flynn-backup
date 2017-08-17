@@ -43,7 +43,7 @@ class Flynn
   def update_ssl_route(acme_cert)
     cert = Tempfile.new(['cert','.pem'])
     key = Tempfile.new(['key','.pem'])
-    cert.write acme_cert.cert_pem
+    cert.write acme_cert.fullchain_pem
     key.write acme_cert.private_pem
     
     cmd = "flynn -a #{@app} route update #{acme_cert.route.f_id} -c #{cert.path} -k #{key.path}"
