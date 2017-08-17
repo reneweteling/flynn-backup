@@ -47,6 +47,9 @@ class Flynn
     key.write acme_cert.private_pem
     
     cmd = "flynn -a #{@app} route update #{acme_cert.route.f_id} -c #{cert.path} -k #{key.path}"
+
+    puts cmd
+
     stdout, stderr, status = Open3.capture3(cmd)
     
     cert.unlink
