@@ -21,19 +21,19 @@ class Flynn
   end
 
   def backup_postgres
-    tmp_file "flynn -a #{@app} pg dump"
+    tmp_file "flynn -a #{@app} pg dump", ".dump"
   end
 
   def backup_mariadb
-    tmp_file "flynn -a #{@app} mysql dump"
+    tmp_file "flynn -a #{@app} mysql dump", ".dump"
   end
 
   def backup_mongodb
-    tmp_file "flynn -a #{@app} mongodb dump"
+    tmp_file "flynn -a #{@app} mongodb dump", ".dump"
   end
 
   def backup_redis
-    tmp_file "flynn -a #{@app} redis dump"
+    tmp_file "flynn -a #{@app} redis dump", ".dump"
   end
 
   def backup_app
@@ -60,8 +60,8 @@ class Flynn
 
   private
 
-  def tmp_file cmd
-    file = Tempfile.new(['tmp', '.tar'])
+  def tmp_file cmd, ext = '.tar'
+    file = Tempfile.new(['tmp', ext])
     `#{cmd} -f #{file.path}`
     file
   end
