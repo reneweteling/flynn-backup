@@ -119,8 +119,7 @@ ActiveAdmin.register AcmeCert do
 
     f.inputs "Attributes" do 
       f.input :app
-      f.input :route, collection: app.routes.http
-      f.input :ssl_route, collection: app.routes.https
+      f.input :route, collection: app.routes
       f.input :email
     end
 
