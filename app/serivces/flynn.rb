@@ -50,8 +50,8 @@ class Flynn
     unless acme_cert.ssl_route.present?
       name = acme_cert.route.route.split(':').second
       f_id = `flynn -a #{@app} route add http -c #{cert.path} -k #{key.path} #{name}`
-      ssl_route = acme_cert.create_ssl_route(f_id: f_id)
-      acme_cert.update!(ssl_route: ssl_route)
+      acme_cert.ssl_route = acme_cert.create_ssl_route!(f_id: f_id)
+      acme_cert.save!
     end
 
     cmd = "flynn -a #{@app} route update #{acme_cert.ssl_route.f_id} -c #{cert.path} -k #{key.path}"
