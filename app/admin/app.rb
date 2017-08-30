@@ -1,7 +1,7 @@
 ActiveAdmin.register App do
   include ActiveAdminHelper
+  permit!
   
-  permit_params backup_schemas_attributes: [:resource_id, :days, :hours, :retention, :enabled, :_destroy, :id]
   
   actions :index, :update, :edit
   
@@ -65,6 +65,7 @@ ActiveAdmin.register App do
     f.inputs "Backup schema" do 
       f.has_many :backup_schemas, heading: false, allow_create: true, allow_destroy: true do |b|
         b.input :resource, hint: "Leave blank for full app backup", collection: f.object.resources
+        b.input :backup_type 
         b.input :days, hint: "Number of days between backups"
         b.input :hours, hint: "Number of hours between backups"
         b.input :retention, hint: "Amount of backups that need to be kept"

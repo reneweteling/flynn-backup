@@ -1,17 +1,23 @@
 namespace :flynn do 
-  task test: :environment do 
-    cert = AcmeCert.new( app: App.first, email: 'rene@weteling.com', common_name: 'weteling.com', domains: ['*.weteling.com', '*.hosting.weteling.com'])
+  task rebuild_local: :environment do 
 
-    cert = AcmeCert.first
+    raise "WTF!!! dude only in development!!!" unless Rails.env.development?
+    system("rake pg:disconnect RAILS_ENV=test")
+    Rake::Task["pg:disconnect"].invoke
+    Rake::Task["db:drop"].invoke
+    Rake::Task["db:create"].invoke
 
-    client = AcmeClient.new(cert)
-    client.test
-    # client.get_challenge!
+    db = Rails.configuration.database_configuration['development']['database']
 
+    run_command "flynn pg dump -f prod.dump"
+    run_command "pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d #{db} prod.dump"
+    run_command "rm prod.dump"
+
+    Rake::Task["db:migrate"].invoke
   end 
+
+  def run_command(cmd)
+    puts "Running: '#{cmd}'"
+    puts `#{cmd}`
+  end
 end
-
-
-
-
-

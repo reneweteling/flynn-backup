@@ -46,15 +46,7 @@ class Flynn
     cert.write acme_cert.fullchain_pem
     key.write acme_cert.private_pem
 
-    # create ssl route if not exists
-    unless acme_cert.ssl_route.present?
-      name = acme_cert.route.route.split(':').second
-      f_id = `flynn -a #{@app} route add http -c #{cert.path} -k #{key.path} #{name}`
-      acme_cert.ssl_route = acme_cert.create_ssl_route!(f_id: f_id)
-      acme_cert.save!
-    end
-
-    cmd = "flynn -a #{@app} route update #{acme_cert.ssl_route.f_id} -c #{cert.path} -k #{key.path}"
+    cmd = "flynn -a #{@app} route update #{acme_cert.route.f_id} -c #{cert.path} -k #{key.path}"
 
     puts cmd
 

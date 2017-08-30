@@ -3,6 +3,8 @@ class Backup < ApplicationRecord
   belongs_to :resource, optional: true
   belongs_to :backup_schema, counter_cache: true, optional: true
 
+  enum backup_type: [:app, :mariadb, :mongodb, :postgres, :redis] 
+
   mount_uploader :file, BaseUploader
 
   def file=(new_file)

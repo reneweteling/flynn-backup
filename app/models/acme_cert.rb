@@ -1,6 +1,5 @@
 class AcmeCert < ApplicationRecord
   belongs_to :route
-  belongs_to :ssl_route, class_name: 'Route', optional: true
   belongs_to :app
   serialize :error, JSON
   

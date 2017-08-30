@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170830115238) do
+ActiveRecord::Schema.define(version: 20170830151100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 20170830115238) do
     t.datetime "run_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "backup_type", default: 0, null: false
     t.index ["app_id"], name: "index_backup_schemas_on_app_id"
     t.index ["resource_id"], name: "index_backup_schemas_on_resource_id"
   end
@@ -101,6 +102,7 @@ ActiveRecord::Schema.define(version: 20170830115238) do
     t.integer "file_size"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "backup_type", default: 0, null: false
     t.index ["app_id"], name: "index_backups_on_app_id"
     t.index ["backup_schema_id"], name: "index_backups_on_backup_schema_id"
     t.index ["resource_id"], name: "index_backups_on_resource_id"

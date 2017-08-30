@@ -9,16 +9,9 @@ class BackupJob < ApplicationJob
   def backup
     BackupSchema.pending_jobs.each do |b|
       
-      # backup the apps
-      backup = b.backups.new(app: b.app)
-      if b.resource.present?
-        backup.resource = b.resource
-        backup.file = b.resource.backup
-      else
-        backup.file = Flynn.new(b.app.name).backup_app
-      end
-      backup.save!
-
+      # create the backup
+      b.backups.create!(app: b.app, resource: b.resource, file: b.get_backup)
+      
       # Remove items that are out of our retention scope
       b.app.backups.where(resource: b.resource).order(id: :desc).drop(b.retention).map(&:destroy!)
 

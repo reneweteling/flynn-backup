@@ -38,7 +38,7 @@ ActiveAdmin.register AcmeCert do
 
   member_action :update_route, method: :put do 
     output = Flynn.new(resource.app.name).update_ssl_route(resource)
-    redirect_to resource_path, notice: "Route added #{output}"
+    redirect_to resource_path, notice: "Route added #{output}".html_safe
   end
 
   filter :app
