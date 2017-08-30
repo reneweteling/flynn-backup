@@ -43,12 +43,16 @@ class Flynn
   def update_ssl_route(acme_cert)
     cert = Tempfile.new(['cert','.pem'])
     key = Tempfile.new(['key','.pem'])
-    cert.write acme_cert.fullchain_pem
-    key.write acme_cert.private_pem
 
+    File.open(cert.path, "w+") do |f|
+      f.write(acme_cert.fullchain_pem)
+    end
+    
+    File.open(key.path, "w+") do |f|
+      f.write(acme_cert.private_pem)
+    end
+    
     cmd = "flynn -a #{@app} route update #{acme_cert.route.f_id} -c #{cert.path} -k #{key.path}"
-
-    puts cmd
 
     stdout, stderr, status = Open3.capture3(cmd)
     
