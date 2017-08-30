@@ -1,12 +1,24 @@
 ActiveAdmin.register AcmeCert do
+  include ActiveAdminHelper
+  belongs_to_app
+  permit!
+
+  controller do
+    def build_new_resource
+      record = super
+      record.app = app
+      record
+    end
+  end  
+
 
   permit_params :route_id, :email
   
   action_item :show, only: :show do
-    (resource.auth_uri.blank?                     ? link_to("Request challenge", get_challenge_admin_acme_cert_path(resource), method: :put) : "").html_safe +
-    (resource.auth_uri.present?                   ? link_to("Request status", get_status_admin_acme_cert_path(resource), method: :put) : "").html_safe +
-    (resource.challenge_verify_status == 'valid'  ? link_to("Request certificate", get_certificate_admin_acme_cert_path(resource), method: :put) : "").html_safe +
-    (resource.private_pem.present?                ? link_to("Update route with certificate", update_route_admin_acme_cert_path(resource), method: :put) : "").html_safe
+    (resource.auth_uri.blank?                     ? link_to("Request challenge", get_challenge_admin_app_acme_cert_path(app, resource), method: :put) : "").html_safe +
+    (resource.auth_uri.present?                   ? link_to("Request status", get_status_admin_app_acme_cert_path(app, resource), method: :put) : "").html_safe +
+    (resource.challenge_verify_status == 'valid'  ? link_to("Request certificate", get_certificate_admin_app_acme_cert_path(app, resource), method: :put) : "").html_safe +
+    (resource.private_pem.present?                ? link_to("Update route with certificate", update_route_admin_app_acme_cert_path(app, resource), method: :put) : "").html_safe
   end
 
   member_action :get_challenge, method: :put do
@@ -48,6 +60,7 @@ ActiveAdmin.register AcmeCert do
       list_row :domains
       row :app
       row :route
+      row :ssl_route
       row :email
       row :status
       row :auth_uri
@@ -105,7 +118,9 @@ ActiveAdmin.register AcmeCert do
     f.object.email ||= current_admin_user.email
 
     f.inputs "Attributes" do 
-      f.input :route
+      f.input :app
+      f.input :route, collection: app.routes.http
+      f.input :ssl_route, collection: app.routes.https
       f.input :email
     end
 

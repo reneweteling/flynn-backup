@@ -1,17 +1,21 @@
 ActiveAdmin.register Route do
+  include ActiveAdminHelper
+  belongs_to_app
+  permit!
+
   filter :app
   filter :f_id
 
-  actions :index, :update, :edit
+  actions :index
 
-  collection_action :sync, method: :post do
-    FlynnSync.sync
-    redirect_to collection_path, notice: "Flynn is synced"
-  end
+  # collection_action :sync, method: :post do
+  #   FlynnSync.sync
+  #   redirect_to collection_path, notice: "Flynn is synced"
+  # end
 
-  action_item :sync, only: :index do
-    link_to 'Sync apps with cluster', sync_admin_routes_path, method: :post
-  end
+  # action_item :sync, only: :index do
+  #   link_to 'Sync apps with cluster', sync_admin_routes_path, method: :post
+  # end
 
   index do
     selectable_column

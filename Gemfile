@@ -28,6 +28,7 @@ gem 'delayed_job_active_record'
 gem 'devise'
 gem 'activeadmin'
 gem 'activeadmin_addons'
+gem 'active_admin-subnav'
 # Cron actions
 gem 'clockwork'
 # Lets encrypt

@@ -1,6 +1,7 @@
 class AcmeCert < ApplicationRecord
   belongs_to :route
-  has_one :app, through: :route
+  belongs_to :ssl_route, class_name: 'Route', optional: true
+  belongs_to :app
   serialize :error, JSON
   
   validates_presence_of :email

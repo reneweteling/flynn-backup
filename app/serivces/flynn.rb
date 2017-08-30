@@ -45,8 +45,16 @@ class Flynn
     key = Tempfile.new(['key','.pem'])
     cert.write acme_cert.fullchain_pem
     key.write acme_cert.private_pem
-    
-    cmd = "flynn -a #{@app} route update #{acme_cert.route.f_id} -c #{cert.path} -k #{key.path}"
+
+    # create ssl route if not exists
+    unless acme_cert.ssl_route.present?
+      name = acme_cert.route.route.split(':').first
+      f_id = `flynn -a #{@app} route add http -c #{cert.path} -k #{key.path} #{name}`
+      ssl_route = acme_cert.create_ssl_route(f_id: f_id)
+      acme_cert.update!(ssl_route: ssl_route)
+    end
+
+    cmd = "flynn -a #{@app} route update #{acme_cert.ssl_route.f_id} -c #{cert.path} -k #{key.path}"
 
     puts cmd
 

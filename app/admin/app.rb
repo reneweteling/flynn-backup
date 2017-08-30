@@ -1,4 +1,6 @@
 ActiveAdmin.register App do
+  include ActiveAdminHelper
+  
   permit_params backup_schemas_attributes: [:resource_id, :days, :hours, :retention, :enabled, :_destroy, :id]
   
   actions :index, :update, :edit

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170815182544) do
+ActiveRecord::Schema.define(version: 20170830115238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,7 +33,11 @@ ActiveRecord::Schema.define(version: 20170815182544) do
     t.text "fullchain_pem"
     t.datetime "expires_at"
     t.datetime "issued_at"
+    t.bigint "app_id"
+    t.bigint "ssl_route_id"
+    t.index ["app_id"], name: "index_acme_certs_on_app_id"
     t.index ["route_id"], name: "index_acme_certs_on_route_id"
+    t.index ["ssl_route_id"], name: "index_acme_certs_on_ssl_route_id"
   end
 
   create_table "active_admin_comments", force: :cascade do |t|
@@ -141,7 +145,9 @@ ActiveRecord::Schema.define(version: 20170815182544) do
     t.index ["app_id"], name: "index_routes_on_app_id"
   end
 
+  add_foreign_key "acme_certs", "apps"
   add_foreign_key "acme_certs", "routes"
+  add_foreign_key "acme_certs", "routes", column: "ssl_route_id"
   add_foreign_key "backup_schemas", "apps"
   add_foreign_key "backup_schemas", "resources"
   add_foreign_key "backups", "apps"

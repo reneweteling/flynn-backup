@@ -1,4 +1,8 @@
 ActiveAdmin.register Backup do
+  include ActiveAdminHelper
+  belongs_to_app
+  permit!
+
   actions :index, :destroy
   filter :app
   filter :resource
