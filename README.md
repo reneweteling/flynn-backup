@@ -80,3 +80,8 @@ or [hire me][hire] to help build your product.
 
 
 
+flynn -a router env set ADDITIONAL_HTTP_PORTS=3000,8080
+
+flynn -a flynn-backup route add http -p 8080 backup.weteling.com
+
+alias hostingtunnel="ssh -f -N -L 8080:localhost:8080 root@hosting.weteling.com && open 'http://dashboard.weteling.com:8080' && open 'http://backup.weteling.com:8080'"
