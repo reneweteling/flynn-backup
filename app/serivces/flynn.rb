@@ -40,6 +40,26 @@ class Flynn
     tmp_file "flynn -a #{@app} export"
   end
 
+  def backup_postgres_to s3path
+    to_s3 s3path, "flynn -a #{@app} pg dump"
+  end
+
+  def backup_mariadb_to s3path
+    to_s3 s3path, "flynn -a #{@app} mysql dump"
+  end
+
+  def backup_mongodb_to s3path
+    to_s3 s3path, "flynn -a #{@app} mongodb dump"
+  end
+
+  def backup_redis_to s3path
+    to_s3 s3path, "flynn -a #{@app} redis dump"
+  end
+
+  def backup_app_to s3path
+    to_s3 s3path, "flynn -a #{@app} export"
+  end
+
   def update_ssl_route(acme_cert)
     cert = Tempfile.new(['cert','.pem'])
     key = Tempfile.new(['key','.pem'])
@@ -70,6 +90,13 @@ class Flynn
     file
   end
 
+  def to_s3 s3path, cmd
+    s3path = "s3://#{ENV.fetch('AWS_BUCKET')}/#{s3path}"
+    `#{cmd} | aws s3 cp - #{s3path} --profile default --region #{ENV.fetch('AWS_DEFAULT_REGION')}`
+    size = `aws s3 ls #{s3path} --profile default --region #{ENV.fetch('AWS_DEFAULT_REGION')}`
+    filesize = size.split(/\s{2,}/)[1].split(' ')[0].to_i
+  end
+
   def self.table_to_hash table
     rows = table.split("\n")
     keys = rows.shift.split(/\s{2,}/) 
@@ -80,4 +107,3 @@ class Flynn
   end
 
 end
-
