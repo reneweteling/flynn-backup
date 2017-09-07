@@ -91,9 +91,11 @@ class Flynn
   end
 
   def to_s3 s3path, cmd
+    aws_cred = "AWS_ACCESS_KEY_ID=#{ENV.fetch('AWS_ACCESS_KEY_ID')} AWS_SECRET_ACCESS_KEY=#{ENV.fetch('AWS_SECRET_ACCESS_KEY')} AWS_DEFAULT_REGION=#{ENV.fetch('AWS_DEFAULT_REGION')}"
+
     s3path = "s3://#{ENV.fetch('AWS_BUCKET')}/#{s3path}"
-    `#{cmd} | aws s3 cp - #{s3path} --profile default --region #{ENV.fetch('AWS_DEFAULT_REGION')}`
-    size = `aws s3 ls #{s3path} --profile default --region #{ENV.fetch('AWS_DEFAULT_REGION')}`
+    `#{cmd} | #{aws_cred} aws s3 cp - #{s3path}`
+    size = `#{aws_cred} aws s3 ls #{s3path}`
     filesize = size.split(/\s{2,}/)[1].split(' ')[0].to_i
   end
 
