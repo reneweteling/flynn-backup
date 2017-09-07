@@ -1,3 +1,3 @@
 https://github.com/reneweteling/flynncli-buildpack.git
-https://github.com/odedlaz/heroku-buildpack-awscli.git
+https://github.com/Shopify/heroku-buildpack-awscli.git
 https://github.com/heroku/heroku-buildpack-ruby.git
