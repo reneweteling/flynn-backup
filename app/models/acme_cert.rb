@@ -5,7 +5,7 @@ class AcmeCert < ApplicationRecord
   
   validates_presence_of :email
 
-  scope :expires_soon, -> { where(auth_verify_status: 'valid').where('expires_at > ?', Time.now - 1.week) }
+  scope :expires_soon, -> { where(auth_verify_status: 'valid').where('expires_at < ?', Time.now + 1.month) }
   
   def common_name
     route.route.split(':').second
