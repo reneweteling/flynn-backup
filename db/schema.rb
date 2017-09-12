@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170830151100) do
+ActiveRecord::Schema.define(version: 20170912110746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(version: 20170830151100) do
     t.datetime "issued_at"
     t.bigint "app_id"
     t.bigint "ssl_route_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["app_id"], name: "index_acme_certs_on_app_id"
     t.index ["route_id"], name: "index_acme_certs_on_route_id"
     t.index ["ssl_route_id"], name: "index_acme_certs_on_ssl_route_id"
