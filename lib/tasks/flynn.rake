@@ -16,6 +16,11 @@ namespace :flynn do
     Rake::Task["db:migrate"].invoke
   end 
 
+  task :deploy do
+    run_command "git push flynn $(git rev-parse --abbrev-ref HEAD):master -f"
+    run_command "flynn run bin/rails db:migrate"
+  end
+
   def run_command(cmd)
     puts "Running: '#{cmd}'"
     puts `#{cmd}`
