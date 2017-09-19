@@ -20,6 +20,23 @@ class Flynn
     self.class.table_to_hash `flynn -a #{@app} resource`
   end
 
+  def releases
+    self.class.table_to_hash `flynn -a #{@app} release`
+  end
+
+  def delete_release(id)
+    `flynn -a #{@app} release delete -y #{id}`
+  end
+
+  def delete_old_releases
+    all_releases = releases
+    # keep the last 2
+    all_releases.shift
+    all_releases.shift
+    # delete the old ones
+    all_releases.map{|r| delete_release(r['ID']) }
+  end
+
   def backup_postgres
     tmp_file "flynn -a #{@app} pg dump", ".dump"
   end
