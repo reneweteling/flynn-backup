@@ -4,7 +4,7 @@ class AcmeCert < ApplicationRecord
   serialize :error, JSON
   
   validates_presence_of :email
-  after_create :ensure_acme_route
+  after_create :activate_certificate
 
   scope :expires_soon, -> { where(auth_verify_status: 'valid').where('expires_at < ?', Time.now + 1.month) }
   
@@ -16,9 +16,16 @@ class AcmeCert < ApplicationRecord
     [common_name]
   end
 
-  private 
+  private
 
-  def ensure_acme_route
-    Flynn.new(app.name).ensure_acme_route(self)
+  def activate_certificate
+    flynn = Flynn.new(app.name)
+    acme_client = AcmeClient.new(self)
+
+    flynn.ensure_acme_route(self)
+    acme_client.get_challenge!
+    acme_client.get_status!
+    acme_client.get_certificate!
+    flynn.update_ssl_route(resource)
   end
 end

@@ -13,8 +13,6 @@ class AcmeClient
   end
 
   def get_challenge!
-    return if @cert.auth_uri.present?
-
     # We're going to need a private key.
     @cert.private_key = OpenSSL::PKey::RSA.new(4096).to_s
     
