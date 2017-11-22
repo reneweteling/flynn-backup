@@ -14,10 +14,17 @@ ActiveAdmin.register AcmeCert do
   permit_params :route_id, :email
   
   action_item :show, only: :show do
-    link_to("Request challenge", get_challenge_admin_app_acme_cert_path(app, resource), method: :put).html_safe +
-    link_to("Request status", get_status_admin_app_acme_cert_path(app, resource), method: :put).html_safe +
-    link_to("Request certificate", get_certificate_admin_app_acme_cert_path(app, resource), method: :put).html_safe +
-    link_to("Update route with certificate", update_route_admin_app_acme_cert_path(app, resource), method: :put).html_safe
+    link_to("Activate cert", activate_admin_app_acme_cert_path(app, resource), method: :put)
+    
+    # .html_safe +
+    # link_to("Request status", get_status_admin_app_acme_cert_path(app, resource), method: :put).html_safe +
+    # link_to("Request certificate", get_certificate_admin_app_acme_cert_path(app, resource), method: :put).html_safe +
+    # link_to("Update route with certificate", update_route_admin_app_acme_cert_path(app, resource), method: :put).html_safe
+  end
+
+  member_action :activate, method: :put do 
+    resource.activate_certificate
+    redirect_to resource_path, notice: "Activated"
   end
 
   member_action :get_challenge, method: :put do
