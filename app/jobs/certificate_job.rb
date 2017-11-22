@@ -12,7 +12,7 @@ class CertificateJob < ApplicationJob
       flynn = Flynn.new(cert.app.name)
       acme_client = AcmeClient.new(cert)
   
-      flynn.ensure_acme_route(self)
+      flynn.ensure_acme_route(cert)
       acme_client.get_challenge!
       sleep 1
       acme_client.get_status!
