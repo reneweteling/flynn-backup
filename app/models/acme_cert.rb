@@ -23,9 +23,13 @@ class AcmeCert < ApplicationRecord
     acme_client = AcmeClient.new(self)
 
     flynn.ensure_acme_route(self)
+    sleep 1
     acme_client.get_challenge!
+    sleep 1
     acme_client.get_status!
+    sleep 1
     acme_client.get_certificate!
+    sleep 1
     flynn.update_ssl_route(resource)
   end
 end
