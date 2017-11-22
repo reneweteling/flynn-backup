@@ -14,8 +14,6 @@ class AcmeCert < ApplicationRecord
     [common_name]
   end
 
-  private
-
   def activate_certificate
     flynn = Flynn.new(app.name)
     acme_client = AcmeClient.new(self)
