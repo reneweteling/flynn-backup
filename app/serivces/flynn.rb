@@ -2,6 +2,8 @@ require 'open3'
 
 class Flynn
 
+  FLYNN_APP = 'flynn-backup'
+
   def initialize(app)
     @app = app
   end
@@ -75,6 +77,16 @@ class Flynn
 
   def backup_app_to s3path
     to_s3 s3path, "flynn -a #{@app} export"
+  end
+
+  def ensure_acme_route acme_cert
+    flynn_routes = Flynn.new(FLYNN_APP).routes
+    cert_route = acme_cert.route.route.split(':').second
+    
+    unless flynn_routes.detect{|route| route['ROUTE'].split(':').second == cert_route }
+      # route not present on flynn
+      `flynn -a #{FLYNN_APP} route add http #{cert_route}/.well-known/acme-challenge/`
+    end
   end
 
   def update_ssl_route(acme_cert)

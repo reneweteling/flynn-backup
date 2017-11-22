@@ -9,16 +9,15 @@ ActiveAdmin.register AcmeCert do
       record.app = app
       record
     end
-  end  
-
-
+  end
+  
   permit_params :route_id, :email
   
   action_item :show, only: :show do
-    (resource.auth_uri.blank?                     ? link_to("Request challenge", get_challenge_admin_app_acme_cert_path(app, resource), method: :put) : "").html_safe +
-    (resource.auth_uri.present?                   ? link_to("Request status", get_status_admin_app_acme_cert_path(app, resource), method: :put) : "").html_safe +
-    (resource.challenge_verify_status == 'valid'  ? link_to("Request certificate", get_certificate_admin_app_acme_cert_path(app, resource), method: :put) : "").html_safe +
-    (resource.private_pem.present?                ? link_to("Update route with certificate", update_route_admin_app_acme_cert_path(app, resource), method: :put) : "").html_safe
+    link_to("Request challenge", get_challenge_admin_app_acme_cert_path(app, resource), method: :put).html_safe +
+    link_to("Request status", get_status_admin_app_acme_cert_path(app, resource), method: :put).html_safe +
+    link_to("Request certificate", get_certificate_admin_app_acme_cert_path(app, resource), method: :put).html_safe +
+    link_to("Update route with certificate", update_route_admin_app_acme_cert_path(app, resource), method: :put).html_safe
   end
 
   member_action :get_challenge, method: :put do
