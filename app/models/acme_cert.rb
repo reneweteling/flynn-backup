@@ -25,6 +25,6 @@ class AcmeCert < ApplicationRecord
     sleep 1
     acme_client.get_certificate!
     sleep 1
-    flynn.update_ssl_route(resource)
+    flynn.update_ssl_route(self)
   end
 end
